@@ -45,6 +45,11 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - name: calibre-web-data
+            mountPath: /config
+          - name: calibre-web-data
+            mountPath: /books
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -56,4 +61,12 @@ spec:
     {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
+      volumes:
+      - name: calibre-web-data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ if .Values.persistence.existingClaim }}{{ .Values.persistence.existingClaim }}{{- else }}{{ template "calibre-web.fullname" . }}-data{{- end }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
     {{- end }}

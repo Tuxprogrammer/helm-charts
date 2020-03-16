@@ -3,7 +3,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ template "calibre-web.fullname" . }}-calibre-web
+  name: {{ template "calibre-web.fullname" . }}-data
   labels:
     app.kubernetes.io/name: {{ include "calibre-web.name" . }}
     helm.sh/chart: {{ include "calibre-web.chart" . }}
