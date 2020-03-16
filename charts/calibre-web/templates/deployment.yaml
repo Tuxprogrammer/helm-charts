@@ -61,6 +61,7 @@ spec:
     {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
+    {{- end }}
       volumes:
       - name: calibre-web-data
       {{- if .Values.persistence.enabled }}
@@ -69,4 +70,3 @@ spec:
       {{- else }}
         emptyDir: {}
       {{- end }}
-    {{- end }}
