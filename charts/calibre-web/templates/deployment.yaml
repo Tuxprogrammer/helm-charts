@@ -58,8 +58,10 @@ spec:
           volumeMounts:
           - name: calibre-web-data
             mountPath: /config
+            subPath: config
           - name: calibre-web-data
             mountPath: /books
+            subPath: books
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
